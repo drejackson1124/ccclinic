@@ -1,0 +1,39 @@
+.values-container {
+    padding: 3em 5em 5em 5em;
+    background: linear-gradient(to top, #fab8eb, transparent, transparent);
+}
+
+.values-title {
+    font-family: 'Roboto Slab', serif;
+}
+
+.values-card {
+    border: 2px solid #f014be;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+    .values-container {
+        background: linear-gradient(to bottom, #fab8eb, white, white);
+        position: relative;
+        padding: 2em;
+    }
+
+    .values-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://i.ibb.co/GF99Pvv/carrcarebanner1-1.png'); 
+        background-size: 200px;
+        background-repeat: repeat;
+        opacity: 0.3;
+        z-index: 1; 
+    }
+
+    .values-card {
+        background: white;
+    }
+ }
