@@ -1,0 +1,143 @@
+.banner-container {
+    background: linear-gradient(to top, white, transparent, transparent);
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.banner-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 130vw;
+    height: 100px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 c 30 20, 40 -20, 80 0 V20 H0" fill="white" /></svg>');
+    background-size: cover;
+    background-repeat: repeat-x;
+    z-index: 1;
+}
+  
+
+.banner-right {
+    background: #f014be;
+    position: relative;
+}
+
+.banner-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/GF99Pvv/carrcarebanner1-1.png'); 
+    background-size: 200px;
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: 1; 
+}
+
+.banner-text-container {
+    position: relative;
+    z-index: 2;
+}
+
+
+.banner-left .img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-left .img-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, #f014be, transparent, transparent);
+    z-index: 1;
+}
+
+.img-fluid {
+    display: block;
+    width: 100%;
+    height: auto;
+    z-index: 0; 
+}
+
+.banner-button {
+    background: #fab8eb;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.banner-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 50px 0 50px;
+}
+
+.banner-text-container {
+    max-width: 100%;
+    background: linear-gradient(to left, white, transparent, white);
+    padding: 20px;
+    border-radius: 30px;
+}
+
+.banner-title, .banner-subtext, .banner-button {
+    font-family: 'Roboto Slab', serif;
+}
+
+.banner-title {
+    font-weight: bolder;
+}
+
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+    .banner-left .img-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #f014be, transparent, transparent);
+        z-index: 1;
+    }
+
+    .banner-right {
+        padding: 30px 50px 30px 50px;
+    }
+
+    .banner-text-container {
+        max-width: 100%;
+        background: transparent;
+        padding: 0;
+    }
+
+    .banner-title {
+        font-size: 21px;
+        color: #fab8eb;
+        padding-bottom: 10px;
+    }
+
+    .banner-container::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 130vw;
+        height: 100px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 c 30 20, 40 -20, 80 0 V20 H0" fill="white" /></svg>');
+        background-size: cover;
+        background-repeat: repeat-x;
+        z-index: -1;
+    }
+ }

@@ -1,0 +1,4 @@
+.sticky-container {
+    z-index: 3000;
+    position: relative;
+}
