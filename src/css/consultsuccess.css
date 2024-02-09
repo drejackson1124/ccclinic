@@ -1,0 +1,18 @@
+.consult-success-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: bolder;
+    font-size: 40px;
+    padding: 0 1em 0 1em;
+}
+
+.consult-success-subtext {
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    padding: 0 1em 0 1em;
+    text-align: center;
+}
+
+.consult-success-btn {
+    background: #f014be;
+    color: white;
+}

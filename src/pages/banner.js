@@ -1,5 +1,6 @@
 import React from "react";
 import '../css/banner.css';
+import { Link } from 'react-router-dom';
 
 const Banner = (props) => {
     return (
@@ -22,7 +23,7 @@ const Banner = (props) => {
                             </h3>
                         </div>
                         <div className="banner-button-container">
-                            <button className="btn btn-lg banner-button mt-4">Start Your Transformation</button>
+                            <Link to='/initial-quest' className="btn btn-lg banner-button mt-4">Start Your Transformation</Link>
                         </div>
                     </div>
                 </div>

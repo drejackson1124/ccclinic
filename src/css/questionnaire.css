@@ -1,0 +1,31 @@
+.quest-button {
+    background: #f014be;
+    color: white;
+}
+
+.initial-quest-text {
+    font-size: 30px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.initial-quest-title {
+    font-size: 35px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.initial-quest-title1 {
+    font-size: 35px;
+    font-family: 'Roboto Slab', serif;
+}
+
+@media (min-width: 200px) {
+    .initial-quest-text {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 700px) {
+    .initial-quest-text {
+        font-size: 30px;
+    }
+}

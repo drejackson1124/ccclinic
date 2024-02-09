@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     height: 350px;
+    overflow-y: scroll;
 }
 
 .review-card-margin {

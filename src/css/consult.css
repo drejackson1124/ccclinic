@@ -1,0 +1,27 @@
+.consult-button {
+    background: #f014be;
+    color: white;
+}
+
+.consult-title {
+    font-size: 30px;
+    padding-top: 1em;
+    font-family: 'Roboto Slab', serif;
+}
+
+.consult-subtext {
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+.consult-subtext-title {
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+.faqs-highlight {
+    color: #f014be;
+    font-weight: bolder;
+}
