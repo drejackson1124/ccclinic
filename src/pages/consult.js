@@ -18,6 +18,15 @@ const Consult = (props) => {
         if(!fname.length || !lname.length || !email.length || !phone.length){
             alert('Please fill out the entire form.');
         } else {
+            if(phone.length < 10){
+                alert('Please enter your phone number, including the area code.');
+                document.getElementById("consult-btn").classList.remove('disabled');
+                return;
+            } else if (phone.length > 10){
+                alert('Hmm, looks like you may have included special characters, or a country code for your phone number. Please input number in this format: 4448567890 to continue.');
+                document.getElementById("consult-btn").classList.remove('disabled');
+                return;
+            }
             let obj = { fname, lname, email, phone, notes, service };
             const result = await api.add_consult(obj);
             if(result.statusCode === 400){
@@ -100,7 +109,7 @@ const Consult = (props) => {
                     </div>
                     <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" id="phone" placeholder="Phone Number"/>
+                    <input type="text" class="form-control" id="phone" placeholder="Please include area code, no spaces or dashes"/>
                     </div>
                     <div class="mb-3">
                     <label for="notes" class="form-label">Any notes for the provider?</label>

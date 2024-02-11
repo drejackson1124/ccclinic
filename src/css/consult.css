@@ -3,6 +3,11 @@
     color: white;
 }
 
+.consult-button:hover {
+    background: #f014be;
+    color: white;
+}
+
 .consult-title {
     font-size: 30px;
     padding-top: 1em;

@@ -5,19 +5,24 @@ import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-    const [isSpinning, setIsSpinning] = useState(false);
     const [animationClass, setAnimationClass] = useState('');
+    const navRef = useRef();
+
     const handleNavCollapse = () => {
-        // setIsSpinning(!isSpinning);
         setAnimationClass(isNavCollapsed ? 'spin' : 'pulse');
         setIsNavCollapsed(!isNavCollapsed);
     }
-    const navRef = useRef();
+
+    const handleCloseNav = () => {
+        setAnimationClass('pulse'); 
+        setIsNavCollapsed(true);
+    };
+    
     useEffect(() => {
         if (!isNavCollapsed) {
             navRef.current.style.maxHeight = navRef.current.scrollHeight + "px";
         } else {
-            navRef.current.style.maxHeight = null; // Reset max-height
+            navRef.current.style.maxHeight = null;
         }
     }, [isNavCollapsed]);
     
@@ -29,24 +34,23 @@ const Navbar = (props) => {
             </Link>
             <button onClick={handleNavCollapse} className="navbar-toggler med-icon-toggler" type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class={`fa-solid fa-heart med-icon ${animationClass}`}></i>
-                {/* <img src={favicon2} alt="" width="auto" height="80px" className="med-icon"/> */}
             </button>
             <div className={`navbar-collapse`} ref={navRef} id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to='/'>Home</Link>
+                <Link className="nav-link active" aria-current="page" to='/' onClick={handleCloseNav}>Home</Link>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="#">FAQS</a>
+                <Link className="nav-link" to='/sched-consultation' onClick={handleCloseNav}>Consultation</Link>
                 </li>
                 <li className="nav-item">
-                <Link className="nav-link" to='/sched-consultation'>Consultation</Link>
+                <Link className="nav-link" to="/request-refill" onClick={handleCloseNav}>Request Refill</Link>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="#">About</a>
+                <a className="nav-link" href="#" onClick={handleCloseNav}>About</a>
                 </li>
                 <li className="nav-item">
-                <Link className="nav-link" to="/request-refill">Request Refill</Link>
+                <a className="nav-link" href="#" onClick={handleCloseNav}>FAQS</a>
                 </li>
             </ul>
             </div>

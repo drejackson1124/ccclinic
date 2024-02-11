@@ -1,6 +1,7 @@
 import React from "react";
 import '../css/footer.css';
 import carrcarelogo from '../images/carrcarelogo.png';
+import { Link } from "react-router-dom";
 
 const Footer = (props) => {
     return (
@@ -23,10 +24,10 @@ const Footer = (props) => {
 
         <ul class="list-unstyled mb-0">
           <li>
-            <a href="#!" class="text-white">Book A Consultation</a>
+            <Link to='/request-refill' class="text-white">Request A Refill</Link>
           </li>
           <li>
-            <a href="#!" class="text-white">Learn About Our Services</a>
+            <Link to='/sched-consultation' class="text-white">Book A Consultation</Link>
           </li>
           <li>
             <a href="#!" class="text-white">Visit Our Sister Company</a>
