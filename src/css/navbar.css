@@ -1,6 +1,56 @@
 .navbar {
     z-index: 1000;
     background: #fab8eb;
-    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
+
+.navbar-collapse {
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    max-height: 0; /* Start collapsed */
+  }
+
+.med-icon {
+    font-size: 35px;
+}
+
+.med-icon-toggler {
+    border: none;
+}
+
+.med-icon-toggler:hover {
+    border: none;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1); /* Adjust scale value for desired effect */
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+.pulse {
+    animation: pulse 0.8s ease-in-out;
+    color: #f014be;
+  }
+
+.spin {
+    animation: spin 0.5s ease-in-out;
+    color: #f014be;
+}
+
+  

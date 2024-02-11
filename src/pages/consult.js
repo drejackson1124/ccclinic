@@ -20,13 +20,44 @@ const Consult = (props) => {
         } else {
             let obj = { fname, lname, email, phone, notes, service };
             const result = await api.add_consult(obj);
-            if(result.statusCode !== 200){
+            if(result.statusCode === 400){
                 alert('It looks like youve already signed up for a consult. Please email us to check the status');
-            } else {
+                navigate('/');
+            } else if (result.statusCode === 201) {
+                updateButtonDisabled(true);
+                await api.send_email(obj);
+                alert('It looks like you\'re already a user. We\'ve sent the consult request to your provider and they will be reaching out shortly.');
+                navigate('/consult-success');
+            } else if (result.statusCode === 200) {
                 updateButtonDisabled(true);
                 await api.send_email(obj);
                 alert('Thank you! We\'ve got your request. We will be reaching out shortly.');
                 navigate('/consult-success');
+
+            } else if (result.statusCode === 401) {
+                updateButtonDisabled(true);
+                alert('Something unexpected happened, please try again.');
+                document.getElementById("consult-btn").classList.remove('disabled');
+
+            } else if (result.statusCode === 500) {
+                updateButtonDisabled(true);
+                alert('Error adding consult. Please reach out to business directly.');
+                document.getElementById("consult-btn").classList.remove('disabled');
+
+            } else if (result.statusCode === 501) {
+                updateButtonDisabled(true);
+                alert('Error adding user. Please reach out to business directly.');
+                document.getElementById("consult-btn").classList.remove('disabled');
+
+            } else if (result.statusCode === 600) {
+                updateButtonDisabled(true);
+                alert('Error 600');
+                document.getElementById("consult-btn").classList.remove('disabled');
+
+            } else if (result.statusCode === 601) {
+                updateButtonDisabled(true);
+                alert('Error 601');
+                document.getElementById("consult-btn").classList.remove('disabled');
 
             }
         }
@@ -76,7 +107,10 @@ const Consult = (props) => {
                     <textarea class="form-control" id="notes" rows="3"></textarea>
                     </div>
                     <div class="mb-3 text-center">
-                    <button disabled={isButtonDisabled} className="btn btn-lg consult-button" onClick={() => { checkForm()}}>Submit</button>
+                    <button id="consult-btn" className="btn btn-lg consult-button" onClick={() => { 
+                        document.getElementById("consult-btn").classList.add('disabled');
+                        checkForm()
+                    }}>Submit</button>
                     </div>
                 </div>
                 </div>

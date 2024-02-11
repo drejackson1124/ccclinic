@@ -13,8 +13,8 @@ function App() {
   return (
     <div className="App app-container">
         <Router>
-            <ScrollToTop/>
             <Header/>
+            <ScrollToTop/>
             <div className='flexible-content'>
               <Routes>
                 <Route path="/" element={<Home/>} />

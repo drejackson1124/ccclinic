@@ -16,6 +16,7 @@ const Refills = (props) => {
         const id = document.getElementById('email').value;
         if(id.length === 0){
             alert('Please enter a valid email.');
+            document.getElementById('refill-button').classList.remove('disabled');
         } else {
             let response = await api.send_refill_request({email: id});
             if(response.statusCode === 500){
