@@ -6,19 +6,23 @@ import InitialQuestionnaire from './pages/questionnaire';
 import Consult from './pages/consult';
 import ConsultSuccess from './pages/consultsuccess';
 import Footer from './pages/footer';
+import Refills from './pages/refills';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App app-container">
         <Router>
             <Header/>
-            <Routes>
-              <Route path="/" element={<Home/>} />
-              <Route path="/initial-quest" element={<InitialQuestionnaire/>} />
-              <Route path="/sched-consultation" element={<Consult/>} />
-              <Route path="/consult-success" element={<ConsultSuccess/>} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+            <div className='flexible-content'>
+              <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/initial-quest" element={<InitialQuestionnaire/>} />
+                <Route path="/sched-consultation" element={<Consult/>} />
+                <Route path="/consult-success" element={<ConsultSuccess/>} />
+                <Route path="/request-refill" element={<Refills/>} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </div>
             <Footer/>
         </Router>
     </div>

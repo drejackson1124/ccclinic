@@ -33,10 +33,9 @@ const Consult = (props) => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-6 col-md-12 col-sm-12 mt-3">
-                    <img className="img-fluid" src="https://i.ibb.co/Vt3p2v6/Untitled-design-38.png" alt="Untitled-design-38" border="0"/>
+        <div className="container-fluid">
+            <div className="row row-gradient d-flex justify-content-center align-items-center">
+                <div className="col-lg-6 col-md-12 col-sm-12 mt-3 text-center consult-box">
                     <h3 className="consult-subtext-title mt-2">Welcome to Your First Step Towards Transformation</h3>
                     <p className="consult-subtext">
                     Before you embark on this journey with us, we invite you to explore our <span className="faqs-highlight">FAQs page </span> 
@@ -47,8 +46,8 @@ const Consult = (props) => {
                     forward to guiding you through a personalized wellness plan tailored just for you.
                     </p>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12">
-                <div className="card mt-3 mb-3">
+                <div className="col-lg-6 col-md-12 col-sm-12 pb-3">
+                <div className="card mt-3 mb-3 w-100">
                 <div className="card-title text-center consult-title">Please Fill Out Form</div>
                 <div className="card-body">
                     <div className="mb-3">

@@ -1,6 +1,6 @@
 .values-container {
-    padding: 3em 5em 5em 5em;
-    background: linear-gradient(to top, #fab8eb, transparent, transparent);
+    padding: 3em 8em 5em 8em;
+    /* background: linear-gradient(to bottom, white, white, #fab8eb); */
 }
 
 .values-title {
@@ -8,13 +8,18 @@
 }
 
 .values-card {
-    border: 2px solid #f014be;
+    border-right: none;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.values-card-title {
+    font-family: 'Roboto Slab', serif;
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (max-width: 576px) { 
+@media (min-width: 200px) { 
     .values-container {
-        background: linear-gradient(to bottom, #fab8eb, white, white);
+        /* background: linear-gradient(to bottom, white, white, #fab8eb); */
         position: relative;
         padding: 2em;
     }
@@ -26,7 +31,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('https://i.ibb.co/GF99Pvv/carrcarebanner1-1.png'); 
+        /* background-image: url('https://i.ibb.co/GF99Pvv/carrcarebanner1-1.png');  */
         background-size: 200px;
         background-repeat: repeat;
         opacity: 0.3;
@@ -35,5 +40,11 @@
 
     .values-card {
         background: white;
+    }
+ }
+
+ @media (min-width: 700px){
+    .values-container {
+        padding: 3em 8em 5em 8em;
     }
  }

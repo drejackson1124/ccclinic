@@ -18,6 +18,22 @@ const api = {
             return error.response ? error.response.data : { error: "Unknown error" };
         }
     },
+    send_refill_request: async (obj) => {
+        try {
+            const response = await axios.post(`${base}/refill`, obj);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    add_user: async (obj) => {
+        try {
+            const response = await axios.post(`${base}/add-user`, obj);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    }
 }
 
 export default api;

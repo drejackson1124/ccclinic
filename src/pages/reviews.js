@@ -58,7 +58,7 @@ const Reviews = (props) => {
     return (
         <div className="container-fluid slider-container">
         <div>
-            <h4 className="reviews-title">Patient Testimonials</h4>
+            <h4 className="reviews-title">Success Stories</h4>
           </div>
           <div className="row reviews-card-container">
             <Slider {...settings}>

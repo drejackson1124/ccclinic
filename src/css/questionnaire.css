@@ -4,7 +4,7 @@
 }
 
 .initial-quest-text {
-    font-size: 30px;
+    font-size: 25px;
     font-family: 'Roboto Slab', serif;
 }
 
@@ -18,14 +18,26 @@
     font-family: 'Roboto Slab', serif;
 }
 
+.quest-options-row {
+    margin: 0 8em 0 8em;
+}
+
+.quest-container {
+    height: 100%;
+}
+
 @media (min-width: 200px) {
     .initial-quest-text {
         font-size: 15px;
+    }
+
+    .quest-options-row {
+        margin: 0;
     }
 }
 
 @media (min-width: 700px) {
     .initial-quest-text {
-        font-size: 30px;
+        font-size: 25px;
     }
 }

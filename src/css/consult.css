@@ -10,18 +10,90 @@
 }
 
 .consult-subtext {
-    font-size: 18px;
+    font-size: 17px;
     text-align: center;
     font-family: 'Roboto Slab', serif;
 }
 
 .consult-subtext-title {
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
     font-family: 'Roboto Slab', serif;
+    font-weight: bolder;
 }
 
 .faqs-highlight {
     color: #f014be;
     font-weight: bolder;
+}
+
+.consult-image {
+    display: block;
+    height: 450px;
+    width: auto;
+    border-radius: 30px;
+}
+
+.row-gradient {
+    background: linear-gradient(to right, #f014be, transparent, transparent);
+    z-index: 3;
+}
+
+.row-gradient::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/GF99Pvv/carrcarebanner1-1.png'); 
+    background-size: 200px;
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: -1; 
+}
+
+.img-container {
+    position: relative;
+    display: inline-block; 
+    overflow: hidden; 
+  }
+  
+  .img-container img {
+    display: block;
+    width: 100%; 
+    height: auto; 
+  }
+  
+  .img-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; 
+    z-index: 2; 
+  }
+
+  .consult-box {
+    background: white;
+  }
+  
+
+@media (min-width: 200px) {
+    .row-gradient {
+        background: none;
+        z-index: 3;
+    }
+}
+
+@media (min-width: 700px) {
+    .consult-subtext-title {
+        font-size: 30px;
+    }
+
+    .consult-subtext {
+        font-size: 25px;
+    }
 }

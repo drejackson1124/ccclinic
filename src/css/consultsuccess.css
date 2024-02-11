@@ -7,7 +7,7 @@
 
 .consult-success-subtext {
     font-family: 'Roboto Slab', serif;
-    font-size: 18px;
+    font-size: 25px;
     padding: 0 1em 0 1em;
     text-align: center;
 }
@@ -15,4 +15,10 @@
 .consult-success-btn {
     background: #f014be;
     color: white;
+}
+
+@media (min-width: 200px){
+    .consult-success-subtext {
+        font-size: 18px;
+    }
 }

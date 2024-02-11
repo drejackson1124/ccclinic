@@ -1,0 +1,35 @@
+.refill-title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 25px;
+    margin-top: 1em;
+}
+
+.refill-button {
+    background: #f014be;
+    color: white;
+}
+
+.refill-button:hover {
+    background: #f014be;
+    color: white;
+}
+
+.create-acct-btn {
+    background: #f014be;
+    color: white;
+}
+
+.create-acct-btn:hover {
+    background: #f014be;
+    color: white;
+}
+
+.close-btn {
+    background:#fab8eb;
+    color: black;
+}
+
+.close-btn:hover {
+    background:#fab8eb;
+    color: black;
+}

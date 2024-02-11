@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 const InitialQuestionnaire = (props) => {
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid quest-container">
             <div className="row text-center mt-4 mb-2">
                 <div className="col-12">
                     <h3 className="initial-quest-title1">What Would You Like To Do Today?</h3>
                 </div>
             </div>
-            <div className="row text-center p-3">
+            <div className="row text-center p-3 quest-options-row">
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <div class="card h-100">
                 <div class="card-body">
@@ -33,7 +33,7 @@ const InitialQuestionnaire = (props) => {
                     remains uninterrupted. Whether you're at home or on the go, we've made it convenient 
                     to get the medications you need, when you need them, without missing a beat on your journey 
                     to wellness.</p>
-                    <Link to='/' class="btn quest-button btn-lg">Refill Prescription</Link>
+                    <Link to='/request-refill' class="btn quest-button btn-lg">Refill Prescription</Link>
                 </div>
                 </div>
             </div>

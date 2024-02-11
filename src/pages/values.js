@@ -3,17 +3,17 @@ import '../css/values.css';
 
 const Values = (props) => {
     return (
-        <div className="container-fluid values-container">
+        <div className="container values-container">
         <div className="row mb-4">
             <div className="col-12">
-                <h1 className="values-title text-center">Guiding You with Compassion <br/> and Expertise</h1>
+                <h3 className="values-title text-center">Guiding You with Compassion and Expertise</h3>
             </div>
         </div>
         <div className="row mb-3">
         <div className="col-sm-6 mb-3 mb-sm-0">
             <div className="card values-card h-100">
             <div className="card-body">
-                <h5 className="card-title text-center">Personalized Care</h5>
+                <h5 className="card-title text-center values-card-title">Personalized Care</h5>
                 <p className="card-text">
                 Every journey is unique, and so is our approach to weight loss. 
                 We believe in crafting personalized care plans that fit your lifestyle, preferences, and goals. Our team works 
@@ -26,7 +26,7 @@ const Values = (props) => {
         <div className="col-sm-6">
             <div className="card h-100 values-card">
             <div className="card-body">
-                <h5 className="card-title text-center">Medical Expertise</h5>
+                <h5 className="card-title text-center values-card-title">Medical Expertise</h5>
                 <p className="card-text">
                     Your safety and health are paramount. 
                     That's why our clinic is staffed with experienced medical professionals who specialize in 
@@ -41,7 +41,7 @@ const Values = (props) => {
         <div className="col-sm-6 mb-3 mb-sm-0">
             <div className="card h-100 values-card">
             <div className="card-body">
-                <h5 className="card-title text-center">Sustainable Practices</h5>
+                <h5 className="card-title text-center values-card-title">Sustainable Practices</h5>
                 <p className="card-text">
                 We're not just about short-term results; we aim for lasting change. 
                 Our methods are designed to promote sustainable weight loss and maintenance, 
@@ -55,7 +55,7 @@ const Values = (props) => {
         <div className="col-sm-6">
             <div className="card h-100 values-card">
             <div className="card-body">
-                <h5 className="card-title text-center">Supportive Environment</h5>
+                <h5 className="card-title text-center values-card-title">Supportive Environment</h5>
                 <p className="card-text">
                 We understand the emotional ups and downs of weight loss. 
                 Our clinic is more than a medical facility; it's a supportive 
