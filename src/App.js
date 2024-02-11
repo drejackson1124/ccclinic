@@ -7,11 +7,13 @@ import Consult from './pages/consult';
 import ConsultSuccess from './pages/consultsuccess';
 import Footer from './pages/footer';
 import Refills from './pages/refills';
+import ScrollToTop from './pages/scrolltotop';
 
 function App() {
   return (
     <div className="App app-container">
         <Router>
+            <ScrollToTop/>
             <Header/>
             <div className='flexible-content'>
               <Routes>

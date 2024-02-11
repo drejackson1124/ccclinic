@@ -1,6 +1,6 @@
 html, body {
   max-width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   height: 100%;
 }
 
@@ -12,5 +12,6 @@ html, body {
 
 .flexible-content {
   flex: 1;
+  overflow-x: hidden;
 }
 
