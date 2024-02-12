@@ -4,7 +4,7 @@ import '../css/navbar.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
-    const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+    const [isNavCollapsed, setIsNavCollapsed] = useState(false);
     const [animationClass, setAnimationClass] = useState('');
     const navRef = useRef();
 

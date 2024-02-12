@@ -33,6 +33,54 @@ const api = {
         } catch (error) {
             return error.response ? error.response.data : { error: "Unknown error" };
         }
+    },
+    provider_log: async (username, password) => {
+        try {
+            const response = await axios.post(`${base}/employee-login`, {username, password});
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    get_refill_requests: async () => {
+        try {
+            const response = await axios.get(`${base}/get-requests`);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    get_consult_requests: async () => {
+        try {
+            const response = await axios.get(`${base}/get-consult-requests`);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    get_archived_requests: async () => {
+        try {
+            const response = await axios.get(`${base}/get-archived-requests`);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    mark_as_fulfilled: async (email) => {
+        try {
+            const response = await axios.post(`${base}/refill-fulfilled`, {email});
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    consult_fulfilled: async (email) => {
+        try {
+            const response = await axios.post(`${base}/consult-fulfilled`, {email});
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
     }
 }
 

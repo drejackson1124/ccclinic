@@ -1,0 +1,34 @@
+.dash-card-title {
+    font-weight: bolder;
+}
+
+.dash-no-refills-alert {
+    background: #fab8eb;
+}
+
+.dash-fulfill-btn, .dash-fulfill-btn:hover {
+    background: #f014be;
+    color: white;
+}
+
+.search-btn-outline {
+    border: 1px solid #f014be;
+}
+
+.refill-requests-title {
+    text-align: center;
+    margin-top: 1em;
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: 'Roboto Slab', serif;
+}
+
+.card-container .card {
+    transition: all 0.3s ease; 
+  }
+
+.card-container2 .card {
+    transition: all 0.3s ease; 
+  }
+  
+  
