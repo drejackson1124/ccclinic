@@ -32,6 +32,13 @@
     }
 }
 
+@media (min-width: 700px) {
+  .navbar-collapse {
+      max-height: none !important; 
+      overflow: visible !important;
+  }
+}
+
 @keyframes pulse {
     0% {
       transform: scale(1);

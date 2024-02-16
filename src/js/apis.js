@@ -74,9 +74,33 @@ const api = {
             return error.response ? error.response.data : { error: "Unknown error" };
         }
     },
-    consult_fulfilled: async (email) => {
+    consult_fulfilled: async (email, consultDate) => {
         try {
-            const response = await axios.post(`${base}/consult-fulfilled`, {email});
+            const response = await axios.post(`${base}/consult-fulfilled`, {email, consultDate});
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    schedule_consult: async () => {
+        try {
+            const response = await axios.get(`${base}/schedule-consult`);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    get_consults: async () => {
+        try {
+            const response = await axios.get(`${base}/upcoming-consults`);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    add_employee: async (obj) => {
+        try {
+            const response = await axios.post(`${base}/add-employee`, obj);
             return response.data;
         } catch (error) {
             return error.response ? error.response.data : { error: "Unknown error" };
