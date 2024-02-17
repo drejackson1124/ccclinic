@@ -16,6 +16,7 @@ const Dashboard = (props) => {
     const [currentView, setCurrentView] = useState('refillRequests');
     const modalRef = useRef(null);
     const modalRef2 = useRef(null);
+    const modalRef3 = useRef(null);
     const [appointments, setAppointments] = useState([]);
     const startOfMonth = moment().startOf('month');
     const endOfMonth = moment().endOf('month');
@@ -25,6 +26,7 @@ const Dashboard = (props) => {
     const [friendlyDate, updateFriendlyDate] = useState('');
     const [flag, setFlag] = useState('');
     const [flag2, setFlag2] = useState('');
+    const [patientDetails, setPatientDetails] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(2);
     const [currentPageRefills, setCurrentPageRefills] = useState(1);
@@ -87,6 +89,13 @@ const Dashboard = (props) => {
         modalRef2.current = modal;
     };
 
+    const showPatientDetailsModal = () => {
+        const myModalElement = document.getElementById('user-details-modal');
+        const modal = new Modal(myModalElement);
+        modal.show();
+        modalRef3.current = modal;
+    };
+
     const closeModal = () => {
         if(modalRef.current){
             modalRef.current.hide();
@@ -96,6 +105,12 @@ const Dashboard = (props) => {
     const closeModal2 = () => {
         if(modalRef2.current){
             modalRef2.current.hide();
+        }
+    };
+
+    const closeModal3 = () => {
+        if(modalRef3.current){
+            modalRef3.current.hide();
         }
     };
 
@@ -379,6 +394,7 @@ const Dashboard = (props) => {
                                 <h5 className="mt-3 text-center">No consult requests to show. When you get a request, it will show up here.</h5>
                             ) : (
                                 currentData.map((v, index) => {
+                                    console.log(v);
                                     if(!v.dateOfConsult){
                                         return (
                                             <div className="card mb-3" key={v.email} id={`${v.email}#consult-card`}>
@@ -386,9 +402,21 @@ const Dashboard = (props) => {
                                                     <p><span className="dash-card-title">Patient Name:</span> {v.fname} {v.lname}</p>
                                                     <p><span className="dash-card-title">Email:</span> {v.email}</p>
                                                     <p><span className="dash-card-title">Phone:</span> {v.phone}</p>
-                                                    <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn" onClick={()=>{ 
-                                                        scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
+                                                    {v.birthdate ? (
+                                                        <div>
+                                                        <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn me-3" onClick={()=>{ 
+                                                            scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
                                                         }}>Schedule Consult</button>
+                                                        <button className=" btn btn-md view-record-btn" onClick={() => {
+                                                            setPatientDetails(v);
+                                                            showPatientDetailsModal();
+                                                        }}>View Record</button>
+                                                        </div>
+                                                    ) : (
+                                                        <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn" onClick={()=>{ 
+                                                            scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
+                                                            }}>Schedule Consult</button>          
+                                                        )}
                                                 </div>
                                             </div>
                                         )
@@ -542,6 +570,33 @@ const Dashboard = (props) => {
                             closeModal2();
                         }, 500)
                     }}>Confirm</button>
+                </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <div className="row">
+            <div class="modal fade user-details-modal" id="user-details-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userDetailsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="userDetailsLabel">Details for {patientDetails.fname} {patientDetails.lname}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-5">
+                    <h6><span className="patient-details">Email:</span> {patientDetails.email}</h6>
+                    <h6><span className="patient-details">Phone Number:</span> {patientDetails.phone}</h6>
+                    <h6><span className="patient-details">Birth Date:</span> {patientDetails.birthdate}</h6>
+                    <h6><span className="patient-details">Height:</span> {patientDetails.height}</h6>
+                    <h6><span className="patient-details">Weight:</span> {patientDetails.weight}</h6>
+                    <h6><span className="patient-details">History of Thyromedullary Cancer:</span> {patientDetails.tc}</h6>
+                    <h6><span className="patient-details">History of Multiple Endocrine Neoplasm:</span> {patientDetails.men}</h6>
+                    <h6><span className="patient-details">History of Pancreatitis:</span> {patientDetails.panc}</h6>
+                    <h6><span className="patient-details">Allergies:</span> {patientDetails.allergies}</h6>
+                    <h6><span className="patient-details">Medical History:</span> {patientDetails.mh}</h6>
+                </div>
+                <div class="modal-footer">
+                    <button id="patientDetailsClose" type="button" class="btn patientDetailsClose" data-bs-dismiss="modal">Close</button>
                 </div>
                 </div>
             </div>

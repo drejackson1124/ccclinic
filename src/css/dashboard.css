@@ -81,5 +81,15 @@
 .card-container2, .card-container {
     min-height: 400px;
 }
+
+.view-record-btn, .patientDetailsClose {
+    background: #fab8eb;
+    color: black;
+}
+
+.patient-details {
+    font-weight: bolder;
+    margin-bottom: 1em;
+}
   
   
