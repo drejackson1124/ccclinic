@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import api from "../js/apis";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 
-const DashSidebar = ({archived, upcomingConsults, defaultView, addEmployee, getConsults, getRefills}) => {
+const DashSidebar = ({archived, upcomingConsults, defaultView, addEmployee, consults, updateConsults}) => {
     const [archives, updateArchives] = useState([]);
-    const [consults, setConsults] = useState([]);
     const navigate = useNavigate();
 
-    const getConsultsWithinWeek = async () => {
-        let response = await api.get_consults();
-        let parsed = JSON.parse(response.body);
-        setConsults(parsed);
-    }
+    const consultsWithinWeek = consults.filter(consult => {
+        if (!consult.dateOfConsult || consult.archived) return false; 
+        const consultDate = moment(consult.dateOfConsult);
+        const now = moment();
+        const oneWeekFromNow = moment().add(1, 'weeks');
+        return consultDate.isAfter(now) && consultDate.isBefore(oneWeekFromNow);
+    });
 
     const getArchived = async () => {
         let response = await api.get_archived_requests();
@@ -20,25 +22,17 @@ const DashSidebar = ({archived, upcomingConsults, defaultView, addEmployee, getC
         updateArchives(parsed);
     }
 
-    const refreshConsults = async () => {
-
-    }
-
-    const refreshRefills = async () => {
-        await getRefills();
-    }
-
     useEffect(() => {
         getArchived();
-        getConsultsWithinWeek();
     }, []);
 
     useEffect(() => {
         getArchived();
-        getConsultsWithinWeek();
     }, [archived]);
 
-    const filteredConsults = consults.filter(v => !v.archived);
+    useEffect(() => {
+        updateConsults(consults);
+    }, [consults]);
 
     return (
         <div class="list-group">
@@ -46,7 +40,7 @@ const DashSidebar = ({archived, upcomingConsults, defaultView, addEmployee, getC
             Archived Requests ({archives.length})
         </button>
         <button type="button" class="list-group-item list-group-item-action" onClick={defaultView}>Refill & Consult Requests</button>
-        <button type="button" class="list-group-item list-group-item-action" onClick={upcomingConsults}>Upcoming Consultations ({filteredConsults.length})</button>
+        <button type="button" class="list-group-item list-group-item-action" onClick={upcomingConsults}>Upcoming Consultations ({consultsWithinWeek.length})</button>
         <button type="button" class="list-group-item list-group-item-action" onClick={addEmployee}>Add a User</button>
         <button type="button" class="list-group-item list-group-item-action" onClick={() => { localStorage.removeItem('user'); navigate('/') }}>Log Out</button>
         </div>

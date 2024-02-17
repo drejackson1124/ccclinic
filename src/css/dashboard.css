@@ -66,5 +66,20 @@
     background: #fab8eb;
     color: black;
 }
+
+.dashboard-card-container {
+    height: 630px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.dashboard-paginatio-btn {
+    background: #f014be;
+    color: white;
+}
+
+.card-container2, .card-container {
+    min-height: 400px;
+}
   
   

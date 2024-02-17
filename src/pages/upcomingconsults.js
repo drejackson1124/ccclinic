@@ -4,15 +4,22 @@ import moment from "moment";
 import '../css/upcomingconsult.css';
 import Spinner from "./spinner";
 
-const UpcomingConsults = (props) => {
-    const [consults, setConsults] = useState([]);
+const UpcomingConsults = ({ consults, onConsultUpdate }) => {
     const [flag, setFlag] = useState('');
+    const filteredConsults = consults.filter(v => v.dateOfConsult);
 
-    const getConsultsWithinWeek = async () => {
-        let response = await api.get_consults();
-        let parsed = JSON.parse(response.body);
-        setConsults(parsed);
-        if(parsed.length > 0){
+    const consultsWithinWeek = consults.filter(consult => {
+        if (!consult.dateOfConsult || consult.archived) return false; 
+        const consultDate = moment(consult.dateOfConsult);
+        const now = moment();
+        const oneWeekFromNow = moment().add(1, 'weeks');
+        return consultDate.isAfter(now) && consultDate.isBefore(oneWeekFromNow);
+    });
+
+
+    useEffect(() => {
+        console.log(consultsWithinWeek);
+        if(consultsWithinWeek.length > 0){
             setTimeout(() => {
                 setFlag(true);
             }, 2000);
@@ -21,11 +28,6 @@ const UpcomingConsults = (props) => {
                 setFlag(false);
             }, 2000);
         }
-    }
-
-
-    useEffect(() => {
-        getConsultsWithinWeek();
     }, [])
 
 
@@ -39,6 +41,7 @@ const UpcomingConsults = (props) => {
                 } else {
                     alert('Patient moved to refill requests section.');
                     fadeAwayDiv(`${index}#uc`);
+                    // onConsultUpdate();
                 }
         } else {
             console.log(response);
@@ -66,8 +69,6 @@ const UpcomingConsults = (props) => {
         }, 600); 
       }; 
 
-    const filteredConsults = consults.filter(v => !v.archived);
-
     return (
         <div className="container">
             {flag === '' ? (
@@ -79,10 +80,10 @@ const UpcomingConsults = (props) => {
                 <div className="col-12">
                     {flag === true ? (
                         <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
-                           {filteredConsults.map((v, index) => {
+                           {consultsWithinWeek.map((v, index) => {
                                 return (
-                                    <div class="col">
-                                    <div class="card" id={`${index}#uc`}>
+                                    <div class="col" id={`${index}#uc`}>
+                                    <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">{v.fname} {v.lname}</h5>
                                         <p class="card-text">

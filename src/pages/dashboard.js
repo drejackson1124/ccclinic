@@ -25,6 +25,53 @@ const Dashboard = (props) => {
     const [friendlyDate, updateFriendlyDate] = useState('');
     const [flag, setFlag] = useState('');
     const [flag2, setFlag2] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(2);
+    const [currentPageRefills, setCurrentPageRefills] = useState(1);
+    const [itemsPerPageRefills, setItemsPerPageRefills] = useState(2);
+    const [hiddenConsults, setHiddenConsults] = useState(new Set());
+    const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult) : [];
+    const isOlderThanTwoWeeks = (dateOfLastRefill) => {
+        const twoWeeksAgo = moment().subtract(2, 'weeks');
+        return moment(dateOfLastRefill).isBefore(twoWeeksAgo);
+    };
+    const filteredRefillRequests = refillRequests.filter(v => 
+        v.refillRequestDate && 
+        (!v.dateOfLastRefill || isOlderThanTwoWeeks(v.dateOfLastRefill))
+    );
+
+    const totalPages = Math.ceil(filteredConsults.length / itemsPerPage);
+    const totalPagesRefills = Math.ceil(filteredRefillRequests.length / itemsPerPageRefills);
+
+ 
+    const nextPage = () => {
+        setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
+    };
+
+
+    const prevPage = () => {
+        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
+    };
+
+    const nextPageRefills = () => {
+        setCurrentPageRefills(currentPageRefills => Math.min(currentPageRefills + 1, totalPagesRefills));
+    };
+
+
+    const prevPageRefills = () => {
+        setCurrentPageRefills(currentPageRefills => Math.max(currentPageRefills - 1, 1));
+    };
+
+
+    const currentData = filteredConsults.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const currentDataRefills = filteredRefillRequests.slice(
+        (currentPageRefills - 1) * itemsPerPageRefills,
+        currentPageRefills * itemsPerPageRefills
+    );
 
     const showModal = () => {
         const myModalElement = document.getElementById('schedule-consult-modal');
@@ -115,8 +162,8 @@ const Dashboard = (props) => {
         const groupedByDay = {};
     
         availableTimeSlots.forEach(isoDateTime => {
-            const dayKey = moment(isoDateTime).format('dddd'); // e.g., "Monday"
-            const dateSubtext = moment(isoDateTime).format('MMMM Do YYYY'); // e.g., "February 13th, 2024"
+            const dayKey = moment(isoDateTime).format('dddd');
+            const dateSubtext = moment(isoDateTime).format('MMMM Do YYYY');
             
             if (!groupedByDay[dayKey]) {
                 groupedByDay[dayKey] = {
@@ -209,11 +256,6 @@ const Dashboard = (props) => {
         updateRefillRequests(parsed);
     }
 
-    const isOlderThanTwoWeeks = (dateOfLastRefill) => {
-        const twoWeeksAgo = moment().subtract(2, 'weeks');
-        return moment(dateOfLastRefill).isBefore(twoWeeksAgo);
-    };
-
     const getConsults = async() => {
         const response = await api.get_consult_requests();
         const parsed = JSON.parse(response.body);
@@ -224,6 +266,7 @@ const Dashboard = (props) => {
         document.getElementById(`${email}#btn`).disabled = true;
         let response = await api.mark_as_fulfilled(email);
         if(response.statusCode !== 200){
+            console.log(response);
             document.getElementById(`${email}#btn`).disabled = false;
         } else {
             fadeAwayDiv(`${email}#card`);
@@ -240,7 +283,7 @@ const Dashboard = (props) => {
         } else {
             fadeAwayDiv(`${email}#consult-card`);
             updateArchived(prev => prev + 1);
-            // await getConsults();
+            await getConsults();
         }
     }
 
@@ -261,24 +304,17 @@ const Dashboard = (props) => {
           div.style.padding = '0';
         }, 10); 
       
-        setTimeout(() => {
-          div.remove();
-        }, 600); 
+        // setTimeout(() => {
+        //   div.remove();
+        // }, 600); 
       };  
 
-
-    const filteredRefillRequests = refillRequests.filter(v => 
-        v.refillRequestDate && 
-        (!v.dateOfLastRefill || isOlderThanTwoWeeks(v.dateOfLastRefill))
-    );
-    
-    const filteredConsults = consults.filter(v => !v.dateOfConsult);
 
     const requestsView = (
         <div className="container-fluid">
         <div className="row">
-        <div className="col-6">
-            <div className="card mt-4 mb-4">
+        <div className="col-lg-6 col-md-12 col-sm-12">
+            <div className="card mt-4 mb-4 dashboard-card-container">
                 <div className="card-title refill-requests-title">Refill Requests</div>
                 <form class="d-flex p-3" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -319,10 +355,14 @@ const Dashboard = (props) => {
                         </div>
                     )}
                 </div>
+                <div className="pagination-controls mb-3 d-flex justify-content-center gap-2">
+                    <button className="btn btn-md dashboard-paginatio-btn" onClick={prevPageRefills} disabled={currentPageRefills === 1}>Previous</button>
+                    <button className="btn btn-md dashboard-paginatio-btn" onClick={nextPageRefills} disabled={currentPageRefills === totalPagesRefills}>Next</button>
+                </div>
             </div>
         </div>
-        <div className="col-6">
-        <div className="card mt-4 mb-4">
+        <div className="col-lg-6 col-md-12 col-sm-12">
+        <div className="card mt-4 mb-4 dashboard-card-container">
                 <div className="card-title refill-requests-title">Consult Requests</div>
                 <form class="d-flex p-3" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -338,7 +378,7 @@ const Dashboard = (props) => {
                             {flag2 === false ? (
                                 <h5 className="mt-3 text-center">No consult requests to show. When you get a request, it will show up here.</h5>
                             ) : (
-                                filteredConsults.map((v, index) => {
+                                currentData.map((v, index) => {
                                     if(!v.dateOfConsult){
                                         return (
                                             <div className="card mb-3" key={v.email} id={`${v.email}#consult-card`}>
@@ -358,14 +398,23 @@ const Dashboard = (props) => {
                         </div>
                     )}
                 </div>
+                <div className="pagination-controls mb-3 d-flex justify-content-center gap-2">
+                    <button className="btn btn-md dashboard-paginatio-btn" onClick={prevPage} disabled={currentPage === 1}>Previous</button>
+                    <button className="btn btn-md dashboard-paginatio-btn" onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
+                </div>
             </div>
         </div>
         </div>
     </div>
     );
 
+    const handleConsultUpdate = async () => {
+        const getConsultUpdate = await getConsults(); 
+        updateConsults(getConsultUpdate);
+    };
+
     const upcomingConsultationsView = (
-        <UpcomingConsults/>
+        <UpcomingConsults consults={consults} onConsultUpdate={handleConsultUpdate}/>
     )
 
     const addEmployeeView = (
@@ -399,7 +448,6 @@ const Dashboard = (props) => {
     const handleAddEmployeeClick = () => {
         setCurrentView('addEmployeeView');
     }
-      
 
     useEffect(() => {
         getRefillRequests();
@@ -434,10 +482,10 @@ const Dashboard = (props) => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-4 mt-4">
-                    <DashSidebar getRefills={getRefillRequests} getConsults={getConsults} archived={archived} addEmployee={handleAddEmployeeClick} upcomingConsults={handleUpcomingConsultationsClick} defaultView={handleRequestsClick}/>
+                <div className="col-lg-4 col-md-12 col-sm-12 mt-4">
+                    <DashSidebar updateConsults={updateConsults} consults={consults} getRefills={getRefillRequests} getConsults={getConsults} archived={archived} addEmployee={handleAddEmployeeClick} upcomingConsults={handleUpcomingConsultationsClick} defaultView={handleRequestsClick}/>
                 </div>
-                <div className="col-8" id="dynamic-container">
+                <div className="col-lg-8 col-md-12 col-sm-12" id="dynamic-container">
                     {renderCurrentView()}
                 </div>
             </div>
