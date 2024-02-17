@@ -60,6 +60,17 @@ const Dashboard = (props) => {
         showModal();
     }
 
+    const sendConsultEmail = async () => {
+        let newObj = {
+            name: userDetails[0].name,
+            email: userDetails[0].email,
+            phone: userDetails[0].phone,
+            date: friendlyDate
+        }
+        let response = api.send_scheduled_consult(newObj);
+        let result = response.data;
+    }
+
     const appointmentMoments = appointments.map(appointment => 
         moment(appointment.dateOfConsult)
     );
@@ -223,11 +234,13 @@ const Dashboard = (props) => {
     const consultFulfilled = async (email, consultDate) => {
         document.getElementById(`${email}#consultbtn`).disabled = true;
         let response = await api.consult_fulfilled(email, consultDate);
+        let response2 = sendConsultEmail();
         if(response.statusCode !== 200){
             document.getElementById(`${email}#consultbtn`).disabled = false;
         } else {
             fadeAwayDiv(`${email}#consult-card`);
             updateArchived(prev => prev + 1);
+            // await getConsults();
         }
     }
 
@@ -259,7 +272,7 @@ const Dashboard = (props) => {
         (!v.dateOfLastRefill || isOlderThanTwoWeeks(v.dateOfLastRefill))
     );
     
-    const filteredConsults = consults.filter(v => !v.archived);
+    const filteredConsults = consults.filter(v => !v.dateOfConsult);
 
     const requestsView = (
         <div className="container-fluid">
@@ -278,7 +291,7 @@ const Dashboard = (props) => {
                         </div>
                     ) : (
                         <div>
-                            {flag === false ? (
+                            {filteredRefillRequests.length === 0 ? (
                                     <h5 className="mt-3 text-center">No refill requests to show. When you get a request, it will show up here.</h5>
                             ) : ( 
                                 filteredRefillRequests
@@ -297,7 +310,7 @@ const Dashboard = (props) => {
                                                         <p><span className="dash-card-title">Time Fulfilled:</span> {moment(v.dateOfLastRefill).format('h:mm a')}</p>
                                                     </div>   
                                                 )}
-                                                <button id={`${v.email}#btn`} className="btn btn-md dash-fulfill-btn" onClick={() => {markAsFulfilled(v.email)}}>Mark as Fulfilled</button>
+                                                <button id={`${v.email}#btn`} className="btn btn-md dash-fulfill-btn" onClick={() => {markAsFulfilled(v.email)}}>Ready to Collect</button>
                                             </div>
                                         </div>
                                     )
@@ -325,19 +338,21 @@ const Dashboard = (props) => {
                             {flag2 === false ? (
                                 <h5 className="mt-3 text-center">No consult requests to show. When you get a request, it will show up here.</h5>
                             ) : (
-                                filteredConsults.map((v) => {
-                                    return (
-                                        <div className="card mb-3" key={v.email} id={`${v.email}#consult-card`}>
-                                            <div className="card-body">
-                                                <p><span className="dash-card-title">Patient Name:</span> {v.fname} {v.lname}</p>
-                                                <p><span className="dash-card-title">Email:</span> {v.email}</p>
-                                                <p><span className="dash-card-title">Phone:</span> {v.phone}</p>
-                                                <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn" onClick={()=>{ 
-                                                    scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
-                                                    }}>Schedule Consult</button>
+                                filteredConsults.map((v, index) => {
+                                    if(!v.dateOfConsult){
+                                        return (
+                                            <div className="card mb-3" key={v.email} id={`${v.email}#consult-card`}>
+                                                <div className="card-body">
+                                                    <p><span className="dash-card-title">Patient Name:</span> {v.fname} {v.lname}</p>
+                                                    <p><span className="dash-card-title">Email:</span> {v.email}</p>
+                                                    <p><span className="dash-card-title">Phone:</span> {v.phone}</p>
+                                                    <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn" onClick={()=>{ 
+                                                        scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
+                                                        }}>Schedule Consult</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
+                                        )
+                                    }
                                 })                              
                             )}
                         </div>
@@ -376,6 +391,8 @@ const Dashboard = (props) => {
     };
 
     const handleRequestsClick = () => {
+        getRefillRequests();
+        getConsults();
         setCurrentView('requestsView');
     };
 
@@ -387,14 +404,14 @@ const Dashboard = (props) => {
     useEffect(() => {
         getRefillRequests();
         getConsults();
-
+        
         if(filteredRefillRequests.length > 0){
             setTimeout(() => {
-                setFlag(false);
+                setFlag(true);
             }, 3000)
         } else {
             setTimeout(() => {
-                setFlag(true);
+                setFlag(false);
             }, 3000)
         }
 
@@ -418,7 +435,7 @@ const Dashboard = (props) => {
         <div className="container">
             <div className="row">
                 <div className="col-4 mt-4">
-                    <DashSidebar archived={archived} addEmployee={handleAddEmployeeClick} upcomingConsults={handleUpcomingConsultationsClick} defaultView={handleRequestsClick}/>
+                    <DashSidebar getRefills={getRefillRequests} getConsults={getConsults} archived={archived} addEmployee={handleAddEmployeeClick} upcomingConsults={handleUpcomingConsultationsClick} defaultView={handleRequestsClick}/>
                 </div>
                 <div className="col-8" id="dynamic-container">
                     {renderCurrentView()}

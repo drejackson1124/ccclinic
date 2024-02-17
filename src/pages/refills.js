@@ -23,7 +23,9 @@ const Refills = (props) => {
                 document.getElementById('refill-button').classList.remove('disabled');
             } else if (response.statusCode === 400){
                 updateId(document.getElementById('email').value);
-                showModal();
+                alert('Please submit a consult request first.')
+                navigate('/sched-consultation');
+                // showModal();
             } else {
                 if(response.statusCode === 200){
                     alert('Refill request processed successfully.');

@@ -1,3 +1,8 @@
 .uc-title {
     font-weight: bolder;
 }
+
+.uc-refill-btn, .uc-refill-btn:hover {
+    background: #f014be;
+    color: white;
+}
