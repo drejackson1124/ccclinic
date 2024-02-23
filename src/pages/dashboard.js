@@ -394,7 +394,6 @@ const Dashboard = (props) => {
                                 <h5 className="mt-3 text-center">No consult requests to show. When you get a request, it will show up here.</h5>
                             ) : (
                                 currentData.map((v, index) => {
-                                    console.log(v);
                                     if(!v.dateOfConsult){
                                         return (
                                             <div className="card mb-3" key={v.email} id={`${v.email}#consult-card`}>

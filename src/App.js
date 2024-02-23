@@ -11,6 +11,7 @@ import ScrollToTop from './pages/scrolltotop';
 import ProviderLog from './pages/providerlog';
 import Dashboard from './pages/dashboard';
 import { useState } from 'react';
+import Faqs from './pages/faqs';
 
 function App() {
   const [isLoggedIn, updateIsLoggedIn] = useState(false);
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/request-refill" element={<Refills/>} />
                 <Route path="/provider" element={logged ? <Dashboard/> : <ProviderLog updateLogIn={updateIsLoggedIn} updateUser={updateUser}/>} />
                 <Route path="/dashboard" element={logged ? <Dashboard/> : <ProviderLog updateLogIn={updateIsLoggedIn} updateUser={updateUser}/>} />
+                <Route path="/faqs" element={<Faqs/>} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>

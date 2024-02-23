@@ -4,7 +4,7 @@ import '../css/navbar.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
-    const [isNavCollapsed, setIsNavCollapsed] = useState(false);
+    const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const [animationClass, setAnimationClass] = useState('');
     const navRef = useRef();
 
@@ -50,7 +50,7 @@ const Navbar = (props) => {
                 <a className="nav-link" href="#" onClick={handleCloseNav}>About</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="#" onClick={handleCloseNav}>FAQS</a>
+                <Link className="nav-link" to="/faqs" onClick={handleCloseNav}>FAQS</Link>
                 </li>
             </ul>
             </div>

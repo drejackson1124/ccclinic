@@ -39,7 +39,7 @@ const Footer = (props) => {
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!" class="text-white">FAQS</a>
+            <Link to='/faqs' class="text-white">FAQS</Link>
           </li>
           <li>
             <a href="#!" class="text-white">Our Process</a>
@@ -56,7 +56,6 @@ const Footer = (props) => {
   </div>
   <div class="text-center p-3 copyright">
     © 2024 Copyright: Carr Care, LLC
-    {/* <a class="text-white" href="#"> Carr Care, LLC</a> */}
   </div>
 </footer>
     )

@@ -7,7 +7,7 @@
 .navbar-collapse {
     overflow: hidden;
     transition: max-height 0.5s ease-out;
-    max-height: 0; /* Start collapsed */
+    max-height: 0;
   }
 
 .med-icon {
@@ -44,7 +44,7 @@
       transform: scale(1);
     }
     50% {
-      transform: scale(1.1); /* Adjust scale value for desired effect */
+      transform: scale(1.1); 
     }
     100% {
       transform: scale(1);
