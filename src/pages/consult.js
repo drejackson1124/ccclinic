@@ -39,7 +39,7 @@ const Consult = (props) => {
         if(!fname || !lname || !email || !birthdate || !phone || !height || !weight || !allergies || tc === '' || men === '' || gas === '' || panc === '' || mh === '' || !readFAQs || !informationTrue){
             alert('Please fill out the entire form.');
             document.getElementById("consult-btn").classList.remove('disabled');
-            console.log(formData);
+            // console.log(formData);
         } else {
             if(phone.length < 10){
                 alert('Please enter your phone number, including the area code.');

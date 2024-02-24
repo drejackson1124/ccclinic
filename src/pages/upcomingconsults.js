@@ -18,7 +18,7 @@ const UpcomingConsults = ({ consults, onConsultUpdate }) => {
 
 
     useEffect(() => {
-        console.log(consultsWithinWeek);
+        // console.log(consultsWithinWeek);
         if(consultsWithinWeek.length > 0){
             setTimeout(() => {
                 setFlag(true);
@@ -36,7 +36,7 @@ const UpcomingConsults = ({ consults, onConsultUpdate }) => {
         if (response.statusCode === 200){
                 let response = await api.archive_consult_request({email: incEmail});
                 if(response.statusCode !== 200){
-                    console.log(response);
+                    // console.log(response);
                     alert('Something went wrong. Please try again.');
                 } else {
                     alert('Patient moved to refill requests section.');
@@ -44,7 +44,7 @@ const UpcomingConsults = ({ consults, onConsultUpdate }) => {
                     // onConsultUpdate();
                 }
         } else {
-            console.log(response);
+            // console.log(response);
         }
     }
 

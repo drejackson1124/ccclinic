@@ -27,7 +27,7 @@ const AddEmployee = () => {
                 created: moment().format()
             };
             const result = await api.add_employee(obj);
-            console.log(result);
+            // console.log(result);
             if (result.statusCode === 200) {
                 updateButtonDisabled(true);
                 navigate('/provider');

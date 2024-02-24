@@ -85,7 +85,7 @@ const Refills = (props) => {
                 alert('Youve successfully created your account. Please request a refill again.');
                 closeModal();
             } else {
-                console.log(response);
+                // console.log(response);
             }
         }
     }
