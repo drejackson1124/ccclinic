@@ -93,9 +93,6 @@ const UpcomingConsults = ({ consults, onConsultUpdate }) => {
                                         <button className="btn btn-md btn-success me-2" id="refill-button" onClick={() => {
                                             requestRefill(v.email, index);
                                         }}>Accept</button>
-                                        <button className="btn btn-md btn-danger" id="refill-button" onClick={() => {
-
-                                        }}>Reject</button>
                                     </div>
                                     </div>
                                     </div>

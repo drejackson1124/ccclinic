@@ -36,7 +36,7 @@ const Dashboard = (props) => {
     const [hiddenConsults, setHiddenConsults] = useState(new Set());
     // const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult || !v.rejected) : [];
     const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult && v.rejected !== true) : [];
-    console.log(filteredConsults);
+    // console.log(filteredConsults);
     const isOlderThanTwoWeeks = (dateOfLastRefill) => {
         const twoWeeksAgo = moment().subtract(2, 'weeks');
         return moment(dateOfLastRefill).isBefore(twoWeeksAgo);
@@ -285,7 +285,7 @@ const Dashboard = (props) => {
         document.getElementById(`${email}#btn`).disabled = true;
         let response = await api.mark_as_fulfilled(email);
         if(response.statusCode !== 200){
-            console.log(response);
+            // console.log(response);
             document.getElementById(`${email}#btn`).disabled = false;
         } else {
             fadeAwayDiv(`${email}#card`);
@@ -312,11 +312,11 @@ const Dashboard = (props) => {
             email: user.email
         }
         let result = await api.reject_email(obj);
-        console.log(result);
+        // console.log(result);
         if(result.statusCode !== 200){
-            console.log('email was not sent!');
+            // console.log('email was not sent!');
         } else {
-            console.log('email sent.');
+            // console.log('email sent.');
             fadeAwayDiv(`${user.email}#consult-card`);
             await getConsults();
         }
