@@ -7,8 +7,10 @@ import UpcomingConsults from "./upcomingconsults";
 import { Modal } from 'bootstrap';
 import Spinner from "./spinner";
 import AddEmployee from "./addemployee";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = (props) => {
+    const navigate = useNavigate();
     const [refillRequests, updateRefillRequests] = useState([]);
     const [consults, updateConsults] = useState([]);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -477,6 +479,9 @@ const Dashboard = (props) => {
     }
 
     useEffect(() => {
+        if(!api.getToken()){
+            navigate('/provider');
+        }
         getRefillRequests();
         getConsults();
         

@@ -14,16 +14,10 @@ const ProviderLog = (props) => {
             alert('Please enter a username and password');
             document.getElementById("providerlog-btn").classList.remove('disabled');
         } else {
-            let response = await api.provider_log(username, password);
-            if(response.statusCode === 200){
-                props.updateLogIn(true);
-                props.updateUser(username);
-                localStorage.setItem('user', username);
-                navigate('/dashboard');
-            } else {
-                alert('Invalid username/password combination.');
-                document.getElementById("providerlog-btn").classList.remove('disabled');
-            }
+            let result = await api.auth(username, password);
+            let data = JSON.parse(result.body);
+            api.storeToken(data.token);
+            navigate('/dashboard');
         }
     }
 

@@ -1,4 +1,6 @@
-import axios from "axios"
+import axios from "axios";
+import moment from "moment";
+import { jwtDecode } from "jwt-decode";
 const base = 'https://xaa39b5yq6.execute-api.us-east-1.amazonaws.com/Production';
 
 const api = {
@@ -122,6 +124,34 @@ const api = {
             return error.response ? error.response.data : { error: "Unknown error" };
         }
     },
+    auth: async (username, password) => {
+        try {
+            const response = await axios.post(`${base}/authy`, {username, password, action: 'authenticate'});
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
+    isTokenExpired: (token) => {
+        const decodedToken = jwtDecode(token);
+        const expirationTime = decodedToken.exp * 1000;
+        return moment().isAfter(moment(expirationTime));
+    },
+    storeToken: (token) => {
+        localStorage.setItem('jwtToken', token);
+    },
+    getToken: () => {
+        const token = localStorage.getItem('jwtToken');
+        if (!token || api.isTokenExpired(token)) {
+            // Token is not available or expired, handle accordingly
+            // Maybe refresh the token here
+            return false;
+        } else {
+            // Token is available and valid
+            // console.log('Token is valid');
+            return true;
+        }
+    }
     
 }
 

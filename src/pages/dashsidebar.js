@@ -36,13 +36,13 @@ const DashSidebar = ({archived, upcomingConsults, defaultView, addEmployee, cons
 
     return (
         <div class="list-group">
-        <button type="button" class="list-group-item list-group-item-action" aria-current="true">
+        {/* <button type="button" class="list-group-item list-group-item-action" aria-current="true">
             Archived Requests ({archives.length})
-        </button>
+        </button> */}
         <button type="button" class="list-group-item list-group-item-action" onClick={defaultView}>Refill & Consult Requests</button>
         <button type="button" class="list-group-item list-group-item-action" onClick={upcomingConsults}>Upcoming Consultations ({consultsWithinWeek.length})</button>
         <button type="button" class="list-group-item list-group-item-action" onClick={addEmployee}>Add a User</button>
-        <button type="button" class="list-group-item list-group-item-action" onClick={() => { localStorage.removeItem('user'); navigate('/') }}>Log Out</button>
+        <button type="button" class="list-group-item list-group-item-action" onClick={() => { localStorage.removeItem('jwtToken'); navigate('/') }}>Log Out</button>
         </div>
     )
 }

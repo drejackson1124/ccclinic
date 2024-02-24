@@ -62,7 +62,7 @@ const Consult = (props) => {
                     navigate('/consult-success');
                 } else if (result.statusCode === 200) {
                     updateButtonDisabled(true);
-                    // await api.send_email(obj);
+                    await api.send_email(formData);
                     alert('Thank you! We\'ve got your request. We will be reaching out shortly.');
                     navigate('/consult-success');
 

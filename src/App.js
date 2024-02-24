@@ -12,11 +12,12 @@ import ProviderLog from './pages/providerlog';
 import Dashboard from './pages/dashboard';
 import { useState } from 'react';
 import Faqs from './pages/faqs';
+import api from './js/apis';
 
 function App() {
   const [isLoggedIn, updateIsLoggedIn] = useState(false);
   const [user, updateUser] = useState('');
-  const logged = localStorage.getItem('user');
+  const logged = localStorage.getItem('jwtToken');
 
   return (
     <div className="App app-container">
@@ -30,8 +31,8 @@ function App() {
                 <Route path="/sched-consultation" element={<Consult/>} />
                 <Route path="/consult-success" element={<ConsultSuccess/>} />
                 <Route path="/request-refill" element={<Refills/>} />
-                <Route path="/provider" element={logged ? <Dashboard/> : <ProviderLog updateLogIn={updateIsLoggedIn} updateUser={updateUser}/>} />
-                <Route path="/dashboard" element={logged ? <Dashboard/> : <ProviderLog updateLogIn={updateIsLoggedIn} updateUser={updateUser}/>} />
+                <Route path="/provider" element={api.getToken() ? <Dashboard/> : <ProviderLog updateLogIn={updateIsLoggedIn} updateUser={updateUser}/>} />
+                <Route path="/dashboard" element={<Dashboard/>} />
                 <Route path="/faqs" element={<Faqs/>} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
