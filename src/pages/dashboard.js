@@ -34,7 +34,9 @@ const Dashboard = (props) => {
     const [currentPageRefills, setCurrentPageRefills] = useState(1);
     const [itemsPerPageRefills, setItemsPerPageRefills] = useState(2);
     const [hiddenConsults, setHiddenConsults] = useState(new Set());
-    const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult) : [];
+    // const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult || !v.rejected) : [];
+    const filteredConsults = consults ? consults.filter(v => !v.dateOfConsult && v.rejected !== true) : [];
+    console.log(filteredConsults);
     const isOlderThanTwoWeeks = (dateOfLastRefill) => {
         const twoWeeksAgo = moment().subtract(2, 'weeks');
         return moment(dateOfLastRefill).isBefore(twoWeeksAgo);
@@ -304,6 +306,22 @@ const Dashboard = (props) => {
         }
     }
 
+    const RejectEmail = async (user) => {
+        let obj = {
+            name: user.fname + ' ' + user.lname,
+            email: user.email
+        }
+        let result = await api.reject_email(obj);
+        console.log(result);
+        if(result.statusCode !== 200){
+            console.log('email was not sent!');
+        } else {
+            console.log('email sent.');
+            fadeAwayDiv(`${user.email}#consult-card`);
+            await getConsults();
+        }
+    }
+
 
     const fadeAwayDiv = (divId) => {
         const div = document.getElementById(divId);
@@ -320,10 +338,6 @@ const Dashboard = (props) => {
           div.style.margin = '0';
           div.style.padding = '0';
         }, 10); 
-      
-        // setTimeout(() => {
-        //   div.remove();
-        // }, 600); 
       };  
 
 
@@ -405,13 +419,16 @@ const Dashboard = (props) => {
                                                     <p><span className="dash-card-title">Phone:</span> {v.phone}</p>
                                                     {v.birthdate ? (
                                                         <div>
-                                                        <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn me-3" onClick={()=>{ 
+                                                        <button id={`${v.email}#consultbtn`} className="btn btn-sm dash-fulfill-btn me-2" onClick={()=>{ 
                                                             scheduleConsult({name: v.fname + ' ' + v.lname, email: v.email, phone: v.phone});
                                                         }}>Schedule Consult</button>
-                                                        <button className=" btn btn-md view-record-btn" onClick={() => {
+                                                        <button className=" btn btn-sm view-record-btn me-2" onClick={() => {
                                                             setPatientDetails(v);
                                                             showPatientDetailsModal();
                                                         }}>View Record</button>
+                                                        <button className=" btn btn-sm btn-danger" onClick={() => {
+                                                            RejectEmail(v);
+                                                        }}>Reject</button>
                                                         </div>
                                                     ) : (
                                                         <button id={`${v.email}#consultbtn`} className="btn btn-md dash-fulfill-btn" onClick={()=>{ 
@@ -591,6 +608,7 @@ const Dashboard = (props) => {
                     <h6><span className="patient-details">Email:</span> {patientDetails.email}</h6>
                     <h6><span className="patient-details">Phone Number:</span> {patientDetails.phone}</h6>
                     <h6><span className="patient-details">Birth Date:</span> {patientDetails.birthdate}</h6>
+                    <h6><span className="patient-details">Age:</span> {moment().diff(moment(patientDetails.birthdate, 'MM/DD/YYYY'), 'years')}</h6>
                     <h6><span className="patient-details">Height:</span> {patientDetails.height}</h6>
                     <h6><span className="patient-details">Weight:</span> {patientDetails.weight}</h6>
                     <h6><span className="patient-details">History of Thyromedullary Cancer:</span> {patientDetails.tc}</h6>

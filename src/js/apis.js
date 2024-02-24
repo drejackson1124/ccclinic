@@ -124,6 +124,14 @@ const api = {
             return error.response ? error.response.data : { error: "Unknown error" };
         }
     },
+    reject_email: async (obj) => {
+        try {
+            const response = await axios.post(`${base}/reject-email`, obj);
+            return response.data;
+        } catch (error) {
+            return error.response ? error.response.data : { error: "Unknown error" };
+        }
+    },
     auth: async (username, password) => {
         try {
             const response = await axios.post(`${base}/authy`, {username, password, action: 'authenticate'});
