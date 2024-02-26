@@ -144,7 +144,7 @@ const Consult = (props) => {
                 <div className="col-lg-6 col-md-12 col-sm-12 mt-3 text-center consult-box">
                     <h3 className="consult-subtext-title mt-2">Welcome to Your First Step Towards Transformation</h3>
                     <p className="consult-subtext">
-                    Before you embark on this journey with us, we invite you to explore our <span className="faqs-highlight">FAQs page </span> 
+                    Before you embark on this journey with us, we invite you to explore our <Link to='/faqs'><span className="faqs-highlight">FAQs page </span></Link> 
                      to gain a clearer understanding of what to expect, how we can assist you, and the steps 
                     involved in our consultation process. Knowledge is the key to empowerment, and by familiarizing 
                     yourself with our approach, you'll be better prepared for the transformative journey ahead. Once you're 
