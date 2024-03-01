@@ -150,7 +150,10 @@ const api = {
     },
     getToken: () => {
         const token = localStorage.getItem('jwtToken');
-        if (!token || api.isTokenExpired(token)) {
+        if(token === undefined){
+            alert('Incorrect username/password combination.');
+            return false;
+        } else if (!token || api.isTokenExpired(token)) {
             // Token is not available or expired, handle accordingly
             // Maybe refresh the token here
             return false;

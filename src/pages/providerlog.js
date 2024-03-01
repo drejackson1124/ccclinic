@@ -16,8 +16,13 @@ const ProviderLog = (props) => {
         } else {
             let result = await api.auth(username, password);
             let data = JSON.parse(result.body);
-            api.storeToken(data.token);
-            navigate('/dashboard');
+            if(!data.token){
+                alert('Incorrect username/password combination');
+                document.getElementById("providerlog-btn").classList.remove('disabled');
+            } else {
+                api.storeToken(data.token);
+                navigate('/dashboard');
+            }
         }
     }
 
